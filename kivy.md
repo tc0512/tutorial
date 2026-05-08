@@ -196,7 +196,8 @@ jobs:
 这个版本使用docker, 且自动回答了y, 避免了许多问题
 **注:** 
 **1 文件名为build.yml, 且位置在\<项目根目录\>/.github/workflows**
-**2 这个模板需要提前编写buildozer.spec, 基本内容如下**
+**2 主入口文件必须名为main.py, 否则需要在buildozer.spec中设置**
+**3 这个模板需要提前编写buildozer.spec, 基本内容如下**
 ```ini
 [app]
 title = <显示在手机桌面上的名字>
