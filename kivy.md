@@ -194,7 +194,31 @@ jobs:
         path: .buildozer/logs/
 ```
 这个版本使用docker, 且自动回答了y, 避免了许多问题
-**注: 文件名为build.yml, 且位置在\<项目根目录\>/.github/workflows**
+**注:** 
+**1 文件名为build.yml, 且位置在\<项目根目录\>/.github/workflows**
+**2 这个模板需要提前编写buildozer.spec, 基本内容如下**
+```ini
+[app]
+title = <显示在手机桌面上的名字>
+package.name = <同上, 但是必须全小写>
+package.domain = org.example
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas #如果有字体的话加ttc
+version = 0.1
+requirements = python3,kivy #按需添加
+icon.filename = %(source.dir)s/<图标>.png
+
+[android]
+api = 34
+minapi = 21
+ndk = 23b
+android.accept_sdk_license = True
+android.permissions = INTERNET
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
+```
 
 ## 4 成品
 1. 登录github
