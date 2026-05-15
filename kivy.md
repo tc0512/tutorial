@@ -11,6 +11,7 @@ apt update && apt upgrade
 apt install python3 python3-pip python-is-python3
 apt install python3-venv
 apt install openbox
+apt install xclip
 #创建虚拟环境以安装kivy
 python -m venv <虚拟环境名称>
 source ~/<虚拟环境名称>/bin/activate #激活, 需要在ubuntu的家目录执行
