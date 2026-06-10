@@ -130,3 +130,19 @@ print(syntax)
 1. Windows cmd对彩色文字支持可能较弱
 2. 大量输出可能卡顿
 3. IDLE控制台可能不显示彩色, 建议使用PyCharm/VS Code/code-server
+4. 常用颜色或样式标签
+| 颜色 | 标签 |
+| ------ | ------ |
+| 红 | `red` |
+| 黄 | `yellow` |
+| 绿 | `green` |
+| 青 | `cyon` |
+| 蓝 | `blue` |
+| 紫 | `magenta` |
+
+| 样式 | 标签 |
+| ------ | ------ |
+| 粗体 | `bold` |
+| 斜体 | `italic` |
+| 下划线 | `underline` |
+| 背景色 | `on <color>` |
