@@ -146,3 +146,4 @@ print(syntax)
 | 斜体 | `italic` |
 | 下划线 | `underline` |
 | 背景色 | `on <color>` |
+5. IPython等伪终端环境无法显示彩色
