@@ -88,7 +88,20 @@ print(triangle.perimeter) #周长12
 rectangle = Polygon(Point(0, 0), Point(3, 0), Point(3, 4), Point(0, 4)) #长方形也是可以的
 ```
 
-## 9 注意事项
+## 9 导数
+```python
+from sympy import*
+x = Symbol("x")
+y = 2*x-2
+print(diff(y, x)) #一阶导2
+print(diff(y, x, 2)) #二阶导0
+y = Symbol("y")
+z = x*y
+print(diff(z, x)) #偏导数y
+```
+
+## 10 注意事项
 1. sympy在解超定方程组时可能会输出很长的一坨解
 2. 不等式解集提取只能用solveset, left是最小, right是最大, L左R右
 3. sympy导入可能需要1-2秒时间, 请耐心等待
+4. 不要化简2000项以上的根式, 别问我怎么知道的
