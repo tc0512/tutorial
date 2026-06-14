@@ -100,7 +100,17 @@ z = x*y
 print(diff(z, x)) #偏导数y
 ```
 
-## 10 注意事项
+## 10 表达式代入求值
+```python
+x, y = symbols("x y")
+f1 = 2*x**2-3*x+18 #单自变量函数
+print(f1.subs(x, 2)) #将x=2代入f1
+f2 = x**2+y**2 #多元函数
+print(f2.subs(x, 6)) #将x=6导入f2
+print(f2.subs({x: 4, y: 5})) #将x=4,y=5代入f2
+```
+
+## 11 注意事项
 1. sympy在解超定方程组时可能会输出很长的一坨解
 2. 不等式解集提取只能用solveset, left是最小, right是最大, L左R右
 3. sympy导入可能需要1-2秒时间, 请耐心等待
