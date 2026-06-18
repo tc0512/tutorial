@@ -2,7 +2,7 @@
 ## 1 安装kivy
 MacOs64位, Linux64位和Windows\_amd64可以直接`pip install`到二进制; 对32位设备的用户, 你并不适合在它上面安装kivy; 对于安卓系统, 一般情况下不能安装kivy, 但如果你有Termux, 可以按下列步骤安装ubuntu以变成Linux系统, 从而获取二进制包
 ```bash
-pm install https://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk #或手动安装
+/system/bin/pm install https://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk #或手动安装
 pkg install proot proot-distro
 proot-distro install ubuntu
 proot-distro login ubuntu
