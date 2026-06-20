@@ -226,6 +226,17 @@ else:
     d = 3
 d = 8
 print(d) #8
+
+e = 2.7
+f = 1
+g = 9.8
+if e==f:
+    e = 2.71
+elif f==g:
+    g = 9.8006
+else:
+    f = 3
+print(e, f, g) # 2.7 3 9.8
 ```
 
 ## 6 `for`循环
