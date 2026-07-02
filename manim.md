@@ -45,6 +45,7 @@ manim -pql <文件名>.py HelloWorld
 ## 4 常见的图形
 | 类名 | 用法 |
 | `Circle` | 圆 |
+| ------ | ------ |
 | `Square` | 正方形 |
 | `Rectangle` | 长方形 |
 | `Triangle` | 等边三角形 |
@@ -61,3 +62,25 @@ manim -pql <文件名>.py HelloWorld
 | `Axes` | 坐标系 |
 | `NumberPlane` | 刻度坐标系 |
 | `axes.plot()` | 在Axes上画曲线/函数 |
+
+## 5 常见的图形操作
+| 操作 | 用法 |
+| ------ | ------ |
+| `shift` | 移动 |
+| `scale` | 缩放 |
+| `next_to` | 放在某对象附近 |
+| `Write` | 写字 |
+| `Create` | 缓慢绘制 |
+| `Play` | 动画 |
+
+## 6 关于屏幕和坐标系
+屏幕: x ∈ [-7.1, 7.1]
+y ∈ [-4, 4]
+自定义坐标系: `Axes`
+屏幕物理大小: `self.camera.frame_width`和`self.camera.frame_height`
+
+## 7 渲染参数
+| 参数 | 效果 |
+| ------ | ------ |
+| `-p` | 预览 |
+| `-f` | 渲染后自动打开视频 |
