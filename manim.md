@@ -84,3 +84,37 @@ y ∈ [-4, 4]
 | ------ | ------ |
 | `-p` | 预览 |
 | `-f` | 渲染后自动打开视频 |
+| `-ql` | 480P |
+| `-qm` | 720P |
+| `-qh` | 1080P |
+| `-qk` | 4K |
+| `-j` | 多线程 |
+| `-pql` | 预览+480P |
+| `-pqh` | 预览+1080P |
+
+## 8 实战演练: 尺规作图等边三角形
+```python
+from manim import *
+
+class TriangleWithCompass(Scene):
+    def construct(self):
+        # 1. 画底边 AB
+        A = np.array([-3, -1, 0])
+        B = np.array([3, -1, 0])
+        line = Line(A, B)
+        
+        # 2. 用圆规画弧（分别以 A 和 B 为圆心，AB 为半径）
+        compass_a = Compass(center=A, radius=4)  # 半径需计算，这里用4近似
+        compass_b = Compass(center=B, radius=4)
+        
+        # 3. 找交点 C（理论上两弧交点，此处用位置近似）
+        C = np.array([0, 2.5, 0])
+        
+        # 4. 连接成三角形
+        triangle = Polygon(A, B, C, color=YELLOW)
+        self.add(line, compass_a, compass_b, triangle)
+```
+
+## 9 注意事项
+1. 渲染含中文数学公式时推荐拆分再塞进`VGroup`
+2. manim本身连带其依赖安装体积巨大, 请谨慎考虑
