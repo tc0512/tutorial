@@ -6,5 +6,18 @@
 
 ## 2 字典的创建
 ```python
-usr = {"name": "example", "password": 123456, "token": "MWcrO34CWOJAkchc3uIQbg"
+usr = {"name": "example", "password": 123456, "token": "MWcrO34CWOJAkchc3uIQbg"}
+
+# 访问
+print(usr["name"]) #example
+print(usr.get("token", None)) #键不存在就返回后面的值
+```
+
+## 3 增删改查
+```python
+usr = {"name": "example", "password": 123456, "token": "MWcrO34CWOJAkchc3uIQbg"}
+usr["2fa_secretkey"] = "CT5Y2B7O357VAHB" #键不存在: 增
+usr["password"] = 987654 #键存在: 改
+del usr["token"]
+2fa_disabled = usr.pop("2fa_secretkey")
 ```
