@@ -55,6 +55,11 @@ print(min(array)) #最小值1
 print(sum(array)) #求和15
 array.reverse() #反转并改变原列表
 array.sort() #Tim Sort排序并改变原列表
+print(3 in array) #是否存在
+x0, x1, x2, x3, x4 = array #解包 (原列表还在) 
+import random
+random.shuffle(array) #随机打乱
+print(array.is_sorted()) #是否已排序(Py3.12+)
 ```
 
 ## 6 列表推导式 (装X还省事) 
@@ -90,4 +95,11 @@ import copy
 B = copy.deepcopy(A)
 B[0][0] = 0
 print(A, B) #[[1, 2, 3], [4, 5, 6], [7, 8, 9]] [[0, 2, 3], [4, 5, 6], [7, 8, 9]]
+```
+
+## 8 列表的拼接
+```python
+array = [1, 2, 3, 4, 5]
+array+=6 #[1, 2, 3, 4, 5, 6]
+array+=[7, 8] #[1, 2, 3, 4, 5, 6, 7, 8]
 ```
