@@ -2,7 +2,7 @@
 | Name | Last Update |
 | ------ | ------ |
 | [中考python速通教程](ITexam-py.md) | 2026.6.20 |
-| [Python列表入门](list.md) | 2026.7.7 |
+| [Python列表入门](list.md) | 2026.7.14 |
 | [Kivy: 从`pip install`到`gh release create`全过程教程](kivy.md) | 2026.6.18 |
 | [Sympy: 小学生都会用的强大符号计算库](sympy.md) | 2026.6.14 |
 | [Rich: 终端美化的轻量王者](rich.md) | 2026.6.11 |

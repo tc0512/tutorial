@@ -59,7 +59,9 @@ print(3 in array) #是否存在
 x0, x1, x2, x3, x4 = array #解包 (原列表还在) 
 import random
 random.shuffle(array) #随机打乱
-print(array.is_sorted()) #是否已排序(Py3.12+)
+print(array.is_sorted()) #是否已排序
+unique = list(set([1, 2, 3, 3])) #去重
+clean = [x for x in [1, None, 2, None, 3] if x is not None] #过滤掉None
 ```
 
 ## 6 列表推导式 (装X还省事) 
