@@ -74,6 +74,37 @@ print(O.midpoint(A)) #中点 输出Point(3/2, 2)
 print(Line(O, A).equation()) #两点拟合一次函数y=4/3*x
 l1 = Line(O, A) #直线
 print(l1.slope()) #4/3 一次函数kx+b的k, 专业用语叫斜率
+
+# A, B, C的提取, 非常复杂
+l1_eq = l1.equation()
+expr_str = str(l1_eq.expand())
+A = 0
+B = 0
+C = 0
+terms = expr_str.replace('-', '+-').split('+')
+for term in terms:
+    if not term:
+        continue
+    if 'x' in term and 'y' not in term:
+        coeff_part = term.replace('*x', '').replace('x', '').strip()
+        if coeff_part == '' or coeff_part == '+':
+            A += 1
+        elif coeff_part == '-':
+            A -= 1
+        else:
+            A += sympify(coeff_part)
+    elif 'y' in term and 'x' not in term:
+        coeff_part = term.replace('*y', '').replace('y', '').strip()
+        if coeff_part == '' or coeff_part == '+':
+            B += 1
+        elif coeff_part == '-':
+            B -= 1
+        else:
+            B += sympify(coeff_part)
+    else:
+        if term:
+            C += sympify(term)
+
 l2 = Line(Point(1, 1), Point(2, 2))
 print(l1.intersection(l2)) #交点, 返回列表
 print(l1.is_perpendicular(l2)) #True 垂直
@@ -115,3 +146,4 @@ print(f2.subs({x: 4, y: 5})) #将x=4,y=5代入f2
 2. 不等式解集提取只能用solveset, left是最小, right是最大, L左R右
 3. sympy导入可能需要1-2秒时间, 请耐心等待
 4. 不要化简2000项以上的根式, 别问我怎么知道的
+5. 不要指望内置功能会帮你提取系数, 字符串硬拆才是王道
