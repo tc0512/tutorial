@@ -93,22 +93,13 @@ if __name__ == "__main__":
 一个kivy做的APP的基础建立在以上代码之上
 
 ## 3 构建
-这是网上给的一个错误示范
-```bash
-pip install buildozer
-buildozer android init
-buildozer android debug
-```
-之所以说它错误，是因为`buildozer android debug`会出现很多问题(如网络, aidl, tty等)
-真正正确的方案是Github Actions，但请注意，build.yml千万不要这么写
+官方推荐使用buildozer构建, 但大量实验表明由于buildozer克隆的p4a的kivy配方有不存在的android库和兼容性极差的python3.14, 所以buildozer几乎无法完成构建, 真正的正确方案是在Actions中用p4a第2024.1.12版构建, 具体配置如下
 ```yaml
-name: Build Android APK
+name: Build APK (Standalone)
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
@@ -116,118 +107,89 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.9'
+      - name: Free Space
+        run: |
+          sudo rm -rf /opt/ghc /usr/local/lib/android /usr/share/dotnet
+          sudo rm -rf /opt/hostedtoolcache /usr/share/swift
+          sudo apt remove -y '^llvm-.*' '^clang-.*' '^golang-.*'
+          sudo apt autoremove -y
+          sudo apt clean
+          df -h
 
-    - name: Install system dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y \
-          git zip unzip openjdk-17-jdk \
-          python3-pip autoconf libtool pkg-config \
-          zlib1g-dev libncurses5-dev libncursesw5-dev \
-          libtinfo5 cmake libffi-dev libssl-dev
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install buildozer
-      run: |
-        pip install buildozer
-        pip install cython==0.29.33
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir Cython==0.29.36
+          pip install --no-cache-dir python-for-android==2024.1.21
+          sudo apt update -y
+          sudo apt install -y default-jdk gcc g++ \
+            make libffi-dev libssl-dev python3-dev \
+            libncurses5-dev zlib1g-dev libbz2-dev \
+            liblzma-dev sqlite3 libltdl-dev \
+            automake autoconf libtool pkg-config \
+            libgl1-mesa-dev libgles2-mesa-dev \
+            libpulse-dev libasound2-dev
 
-    - name: Configure buildozer.spec
-      run: |
-        if [ ! -f buildozer.spec ]; then
-          buildozer init
-        fi
-        sed -i 's/^#\?android.accept_sdk_license =.*/android.accept_sdk_license = True/' buildozer.spec
-        sed -i 's/^#\?android.ndk =.*/android.ndk = 23b/' buildozer.spec
-        sed -i 's/^#\?android.sdk =.*/android.sdk = 24/' buildozer.spec
+      - name: Install Android SDK and NDK manually
+        run: |
+          export ANDROID_SDK_ROOT=$HOME/android-sdk
+          mkdir -p $ANDROID_SDK_ROOT
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+          unzip -q cmdline-tools.zip -d $ANDROID_SDK_ROOT
+          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+          mv $ANDROID_SDK_ROOT/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/ 2>/dev/null || true
+          rmdir $ANDROID_SDK_ROOT/cmdline-tools 2>/dev/null || true
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+            "platforms;android-30" \
+            "build-tools;30.0.3" \
+            "ndk;25.2.9519653" > /dev/null 2>&1
+          echo "✅ Android SDK and NDK installed successfully!"
 
-    - name: Build APK
-      run: buildozer android debug
+      - name: Build with p4a
+        run: |
+          export ANDROID_HOME=$ANDROID_SDK_ROOT
+          export ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
+          export ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/25.2.9519653
+          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+          export CONFIGURE_HOST="aarch64-linux-android"
+          export HOSTPYTHON_CFLAGS="-I$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include"
+          export HOSTPYTHON_LDFLAGS="-L$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/21"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          echo "ANDROID_NDK_HOME=$ANDROID_NDK_HOME"
+          echo "CONFIGURE_HOST=$CONFIGURE_HOST"
+          which sdkmanager
+          sdkmanager --version
+          ls -la $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang || echo "NDK not found!"
+          mkdir -p bin
+          p4a apk \
+            --private . \
+            --package=org.phycalc.app \
+            --name="PhyCalc" \
+            --version=0.4 \
+            --bootstrap=sdl2 \
+            --requirements=python3==3.11.5,pip==23.3.1,setuptools==69.0.0,kivy==2.3.0 \
+            --android-api=30 \
+            --minsdk=21 \
+            --arch=arm64-v8a \
+            --permission=INTERNET
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: kivy-apk
-        path: bin/*.apk
-        retention-days: 30
-
-    - name: Upload logs if build fails
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: buildozer-logs
-        path: .buildozer/logs/
-```
-这个yaml的问题: `apt install libtinfo5`在新版ubuntu会报错, 且在Github Actions这种CI环境中将无法输入y/n, 导致构建失败
-真正的正解
-```yaml
-name: Build Android APK
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    container: kivy/buildozer:latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Build APK
-      run: |
-        # 自动回答 root 警告
-        yes | buildozer android debug
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: kivy-apk
-        path: bin/*.apk
-        retention-days: 30
-
-    - name: Upload logs if build fails
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: buildozer-logs
-        path: .buildozer/logs/
-```
-这个版本使用docker, 且自动回答了y, 避免了许多问题
-**注:** 
-**1 文件名为build.yml, 且位置在\<项目根目录\>/.github/workflows**
-**2 主入口文件必须名为main.py, 否则需要在buildozer.spec中设置**
-**3 这个模板需要提前编写buildozer.spec, 基本内容如下**
-```ini
-[app]
-title = <显示在手机桌面上的名字>
-package.name = <同上, 但是必须全小写>
-package.domain = org.example
-source.dir = .
-source.include_exts = py,png,jpg,kv,atlas #如果有字体的话加ttc
-version = 0.1
-requirements = python3,kivy #按需添加
-icon.filename = %(source.dir)s/<图标>.png
-
-[android]
-api = 34
-minapi = 21
-ndk = 23b
-android.accept_sdk_license = True
-android.permissions = INTERNET
-
-[buildozer]
-log_level = 2
-warn_on_root = 0
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: phycalc
+          path: ~/.local/share/python-for-android/dists/*/build/outputs/apk/debug/*.apk
+          retention-days: 30
 ```
 
 ## 4 成品
