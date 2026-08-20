@@ -7,17 +7,9 @@ apt install python3-manimpango python3-cairo ffmpeg
 pip install manim
 apt install texlive texlive-latex-extra
 ```
-如果是Termux上的ubuntu: 
+### Termux on Android: 
 ```bash
-apt install python3-manimpango python3-cairo #可能需要从主环境mv
-# mv /usr/lib/python3/dist-packages/manimpango/ /root/<你的虚拟环境名称>/lib/python3.xx/site-packages
-# mv /usr/lib/python3/dist-packages/ManimPango-0.6.0.dist-info/ /root/<你的虚拟环境名称>/lib/python3.xx/site-packages/
-# mv /usr/lib/python3/dist-packages/*cairo*/ /root/<你的虚拟环境名称>/lib/python3.xx/lib/python3.xx/site-packages/
-# export PYTHONPATH=/root/base/lib/python3.12/site-packages:$PYTHONPATH
-apt install libx11-dev libgl1-mesa-dev
-pip install manim==0.19.0
-apt install ffmpeg
-apt install texlive texlive-latex-extra
+pkg install manim
 ```
 ### MacOs64位: 同Windows64位
 32位设备建议放弃治疗
