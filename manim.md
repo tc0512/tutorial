@@ -10,6 +10,7 @@ apt install texlive texlive-latex-extra
 ### Termux on Android: 
 ```bash
 pkg install manim
+pkg install texlive-bin
 ```
 ### MacOs64位: 同Windows64位
 32位设备建议放弃治疗
