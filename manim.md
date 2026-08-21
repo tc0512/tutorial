@@ -9,6 +9,9 @@ apt install texlive texlive-latex-extra
 ```
 ### Termux on Android: 
 ```bash
+pkg install git
+git clone https://github.com/tc0512/WHEELS.git
+pip install --no-index --find-links=./WHEELS audioop_lts av glcontext mapbox_earcut moderngl pyglm srt watchdog #本人的预编译包仓库
 pkg install manim
 pkg install texlive-bin
 ```
