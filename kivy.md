@@ -2,24 +2,23 @@
 ## 1 安装kivy
 MacOs64位, Linux64位和Windows\_amd64可以直接`pip install`到二进制; 对32位设备的用户, 你并不适合在它上面安装kivy; 对于安卓系统, 一般情况下不能安装kivy, 但如果你有Termux, 可以按下列步骤安装ubuntu以变成Linux系统, 从而获取二进制包
 ```bash
-/system/bin/pm install https://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk #或手动安装
-pkg install proot proot-distro
+curl -O https://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk && /system/bin/pm install ./*.apk #或手动安装
+pkg install proot proot-distro termux-x11 termux-x11-nightly
+mkdir -p /data/data/com.termux/files/tmp/ && chmod 777 /data/data/com.termux/files/tmp/
 proot-distro install ubuntu
 proot-distro login ubuntu
 #如果命令行变成root@localhost~#, 就说明下载成功, 下面在ubuntu中安装Python
 apt update && apt upgrade
-apt install python3 python3-pip python-is-python3
-apt install python3-venv
-apt install openbox
-apt install xclip
+apt install python3 python3-pip python-is-python3 python3-venv openbox xclip
 #创建虚拟环境以安装kivy
 python -m venv <虚拟环境名称>
 source ~/<虚拟环境名称>/bin/activate #激活, 需要在ubuntu的家目录执行
 pip install kivy
 ```
-注意: 对于在Termux安装ubuntu的用户，写代码之前需执行下面两条命令
+注意: 对于在Termux安装ubuntu的用户，写代码之前需执行下面几条命令
 ```bash
 #~ $
+export TMPDIR=/data/data/com.termux/files/usr/tmp
 termux-x11 :0 &
 export DISPLAY=:0
 proot-distro login ubuntu --bind /data/data/com.termux/files/usr/tmp:/tmp
