@@ -9,10 +9,18 @@ apt install texlive texlive-latex-extra
 ```
 ### Termux on Android: 
 ```bash
-pkg install git
-git clone https://github.com/tc0512/WHEELS.git
-pip install --no-index --find-links=./WHEELS audioop_lts av glcontext mapbox_earcut moderngl pyglm srt watchdog #本人的预编译包仓库
+# 先从本人的预编译包仓库装包
+pip install https://gitee.com/tc0512/wheels/raw/main/audioop_lts-0.2.2-cp313-abi3-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/av-18.1.0-cp314-cp314-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/glcontext-3.0.0-cp314-cp314-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/mapbox_earcut-2.0.0-cp314-cp314-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/moderngl-5.12.0-cp314-cp314-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/pyglm-2.8.3-cp314-cp314-android_24_arm64_v8a.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/srt-3.5.3-py3-none-any.whl
+pip install https://gitee.com/tc0512/wheels/raw/main/watchdog-6.0.0-py3-none-any.whl
+# 再装manim本体
 pkg install manim
+# 最后装可选依赖texlive
 pkg install texlive-bin
 ```
 ### MacOs64位: 同Windows64位
