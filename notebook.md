@@ -26,16 +26,17 @@ jupyter notebook
 ```
 
 ## 3 使用
-[主页面](./notebook/home.jpg)
-[创建notebook](./notebook/create-notebook.jpg)
-[notebook示例](./notebook/notebook.jpg)
-[Jupyter Console](./notebook/console.jpg)
-[Jupyter Terminal](./notebook/terminal.jpg)
-[文本编辑器](./notebook/text-editor.jpg)
-[新建文件夹](./notebook/new-folder.jpg)
+![主页面](./notebook/home.jpg)
+![创建notebook](./notebook/create-notebook.jpg)
+![notebook示例](./notebook/notebook.jpg)
+![Jupyter Console](./notebook/console.jpg)
+![Jupyter Terminal](./notebook/terminal.jpg)
+![文本编辑器](./notebook/text-editor.jpg)
+![新建文件夹](./notebook/new-folder.jpg)
 运行: 三角形按钮
-保存: 硬盘形状按钮
+保存: 硬盘形状按钮或Ctrl+S
 更换内核: 右上角 "Python3 [ipykernel]" 
+新单元格: 点击最下方单元格下面的带加号矩形框
 
 ## 4 注意事项
 1. Jupyter Notebook耗电量较高, 手机慎用
