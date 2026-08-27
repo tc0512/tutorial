@@ -5,7 +5,6 @@
 | [Python列表入门](list.md) | 2026.7.14 |
 | [Python字典入门](dict.md) | 2026.7.14 |
 | [元组: 不可变的列表](tuple.md) | 2026.7.17 |
-| [Kivy: 从`pip install`到`gh release create`全过程教程](kivy.md) | 2026.8.11 |
 | [Sympy: 小学生都会用的强大符号计算库](sympy.md) | 2026.6.14 |
 | [Rich: 终端美化的轻量王者](rich.md) | 2026.6.11 |
 | [Tqdm: 让你知道程序跑了多少, 告别被急死](tqdm.md) | 2026.6.11 |
