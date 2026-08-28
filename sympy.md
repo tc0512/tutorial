@@ -44,7 +44,7 @@ print(solveset(ine, x, S.Reals)) #Interval.open(2, oo) 此处是两边都没有�
 from sympy import*
 x, y = symbols("x y")
 print(simplify(2*x + 2*x)) #4*x
-print(simplify((x + y)**2)) #(x + y)**2, 一般情况下, 化简f(x)^n使用expand函数
+print(simplify((x + y)**2)) #(x + y)**2, 一般情况下, 化简f(x)+n或f(x)·n或f(x)^n使用expand函数
 print(expand((x + y)**2)) #x**2 + 2*x*y + y**2 ✅
 ```
 

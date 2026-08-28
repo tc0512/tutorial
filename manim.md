@@ -124,3 +124,4 @@ class TriangleWithCompass(Scene):
 ## 9 注意事项
 1. 渲染含中文数学公式时推荐拆分再塞进`VGroup`
 2. manim本身连带其依赖安装体积巨大, 请谨慎考虑
+3. `乙.next_to(甲, DOWN)`默认为居中对齐, 左对齐直接将两段文字连起来然后用`\n`, 右对齐可能需要手动`shift`
