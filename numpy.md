@@ -8,7 +8,8 @@ pip install numpy
 ```bash
 pkg install python-numpy
 ```
-32位设备建议放弃
+iOS: AppStore安装a-shell (别装成迷你版! ) , numpy开箱即用
+除iOS外, 32位设备建议放弃
 
 ## 2 基础操作
 ```python
