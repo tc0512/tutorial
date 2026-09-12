@@ -120,6 +120,7 @@ rectangle = Polygon(Point(0, 0), Point(3, 0), Point(3, 4), Point(0, 4)) #长方�
 ```
 
 ## 9 导数
+⚠️注意: 本节内容可能令人不适, 请谨慎浏览
 ```python
 from sympy import*
 x = Symbol("x")
@@ -136,7 +137,7 @@ print(diff(z, x)) #偏导数y
 x, y = symbols("x y")
 f1 = 2*x**2-3*x+18 #单自变量函数
 print(f1.subs(x, 2)) #将x=2代入f1
-f2 = x**2+y**2 #多元函数
+f2 = x**2+y**2 #多自变量函数
 print(f2.subs(x, 6)) #将x=6导入f2
 print(f2.subs({x: 4, y: 5})) #将x=4,y=5代入f2
 ```

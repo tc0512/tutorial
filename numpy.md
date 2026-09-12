@@ -155,6 +155,7 @@ a = np.load('data.npy')
 ```
 
 ## 9 实际应用 (手搓BFGS) 
+⚠️注意: 本节内容可能令人不适, 请谨慎浏览
 ```python
 import numpy as np
 
