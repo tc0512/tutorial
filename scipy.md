@@ -11,6 +11,7 @@ pkg install python-scipy
 iOS: a-shell自带
 
 ## 2 基本功能
+⚠️注意: 本节内容可能令人不适, 请谨慎浏览
 ### 线代
 ```python
 import numpy as np
